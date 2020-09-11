@@ -109,6 +109,8 @@ public class SchedBoost implements LModule {
 
     @Override
     public String onBootApply() {
+        if(no_compatibility())
+            return null;
         return "echo "+lSpinner.getSelection()+" > "+node+"\n";
     }
 
