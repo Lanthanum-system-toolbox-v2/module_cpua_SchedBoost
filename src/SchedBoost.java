@@ -1,6 +1,5 @@
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,7 +41,6 @@ public class SchedBoost implements LModule {
     public View init(Context context) {
         if(no_compatibility())
             return null;
-        Log.e(TAG,"Started");
         LinearLayout linearLayout=new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         TextView title= StandardCard.title(context);
@@ -88,7 +86,6 @@ public class SchedBoost implements LModule {
             this.context=context;
         }
         public void run(){
-            Log.e(TAG,"Started2");
             is_running=true;
             try {
                 while (should_run) {
@@ -106,7 +103,6 @@ public class SchedBoost implements LModule {
             catch (Exception e){
 
             }
-            Log.e(TAG,"Done");
             is_running=false;
         }
     }
