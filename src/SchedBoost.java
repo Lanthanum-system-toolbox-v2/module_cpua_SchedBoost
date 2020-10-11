@@ -1,3 +1,4 @@
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -75,13 +76,17 @@ public class SchedBoost implements LModule {
 
         should_run=true;
         if(!is_running)
-            new refresher().start();
+            new refresher(context).start();
 
 
         return linearLayout;
     }
 
     class refresher extends Thread{
+        Context context;
+        public refresher(Context context){
+            this.context=context;
+        }
         public void run(){
             Log.e(TAG,"Started2");
             is_running=true;
@@ -89,7 +94,12 @@ public class SchedBoost implements LModule {
                 while (should_run) {
                     current=Integer.parseInt(ShellUtil.run("cat " + node, true));
 
-                    lSpinner.setSelection(current);
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            lSpinner.setSelection(current);
+                        }
+                    });
                     Thread.sleep(1000);
                 }
             }
